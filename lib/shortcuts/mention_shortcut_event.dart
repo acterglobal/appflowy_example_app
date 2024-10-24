@@ -1,63 +1,69 @@
-import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:appflowy_example_app/main.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
+// import 'package:appflowy_editor/appflowy_editor.dart';
+// import 'package:appflowy_example_app/main.dart';
+// import 'package:flutter/material.dart';
+// import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-CharacterShortcutEvent mentionShortcutEvent = CharacterShortcutEvent(
-    key: 'User mention',
-    character: '@',
-    handler: (editorState) async {
-      // final transaction = editorState.transaction;
-      // final selection = editorState.selection;
-      // if (selection == null || !selection.isCollapsed) {
-      //   return false;
-      // }
-      // transaction.deleteText(selection.start, 1); // Delete the '@' character
-      // await editorState.apply(transaction);
+// final mentionsShortcutEvent = CharacterShortcutEvent(
+//   key: 'mentions',
+//   character: '@',
+//   handler: (editorState) async {
+//     // Get the current selection
+//     final selection = editorState.selection;
+//     if (selection == null) return false;
 
-      // final user = await _showMentionDialog(editorState.document.root.context!,
-      //     editorState.document.root.context!);
-      // if (user != null) {
-      //   final path = selection.start.path;
-      //   final node = editorState.getNodeAtPath(path);
-      //   if (node == null) false;
+//     // Get the current node
+//     final node = editorState.getNodeAtPath(selection.end.path);
+//     if (node == null) return false;
 
-      //   final transaction = editorState.transaction;
-      //   final delta = node?.delta;
-      //   if (delta != null) {
-      //     final index = selection.start.offset - 1;
-      //     transaction.replaceText(node, index, length, text)
-      //     transaction.updateText(
-      //       node,
-      //       Delta()
-      //         ..insert(user, {
-      //           'mention': {'type': 'user', 'id': user}
-      //         }),
-      //       selection.start.offset - 1,
-      //     );
-      //   }
-      //   await editorState.apply(transaction);
-      // }
-      return true;
-    });
+//     // Get the selection menu service
+//     final selectionMenu = SelectionMenuService.of(editorState);
+//     if (selectionMenu == null) return false;
 
-Future<String?> _showMentionDialog(BuildContext context, WidgetRef ref) async {
-  final users = ref.read(usersProvider);
-  return showDialog<String>(
-    context: context,
-    builder: (context) => AlertDialog(
-      title: const Text('Mention a user'),
-      content: SizedBox(
-        width: double.maxFinite,
-        child: ListView.builder(
-          shrinkWrap: true,
-          itemCount: users.length,
-          itemBuilder: (context, index) => ListTile(
-            title: Text(users[index]),
-            onTap: () => Navigator.of(context).pop(users[index]),
-          ),
-        ),
-      ),
-    ),
-  );
-}
+//     // Show mentions menu
+//     selectionMenu.showSelectionMenu(
+//       selectionMenuItems: [
+//         for (final mention in _mentions)
+//           SelectionMenuItem(
+//             name: mention['name']!,
+//             icon: const Icon(Icons.person),
+//             keywords: [mention['name']!, mention['id']!],
+//             handler: (editorState, _, __) {
+//               final transaction = editorState.transaction;
+//               transaction.deleteText(node, selection.end.offset - 1, 1); // Delete '@'
+//               transaction.insertText(
+//                 node,
+//                 selection.end.offset - 1,
+//                 '${mention['name']} ',
+//               );
+//               editorState.apply(transaction);
+//               return KeyEventResult.handled;
+//             },
+//           ),
+//       ],
+//     );
+
+//     return KeyEventResult.handled;
+//   },
+// );
+
+
+// Future<String?> _showMentionDialog(BuildContext context, WidgetRef ref) async {
+//   final users = ref.read(usersProvider);
+//   return showDialog<String>(
+//     context: context,
+//     builder: (context) => AlertDialog(
+//       title: const Text('Mention a user'),
+//       content: SizedBox(
+//         width: double.maxFinite,
+//         child: ListView.builder(
+//           shrinkWrap: true,
+//           itemCount: users.length,
+//           itemBuilder: (context, index) => ListTile(
+//             title: Text(users[index]),
+//             onTap: () => Navigator.of(context).pop(users[index]),
+//           ),
+//         ),
+//       ),
+//     ),
+//   );
+// }

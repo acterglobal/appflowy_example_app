@@ -1,5 +1,5 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:appflowy_example_app/shortcuts/mention_shortcut_event.dart';
+import 'package:appflowy_example_app/widgets/editor.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -20,10 +20,6 @@ class MyApp extends StatelessWidget {
   }
 }
 
-// Riverpod provider for users
-final usersProvider = Provider<List<String>>(
-    (ref) => ['Alice', 'Bob', 'Charlie', 'David', 'Eve']);
-
 class EditorPage extends ConsumerStatefulWidget {
   const EditorPage({super.key});
 
@@ -33,15 +29,40 @@ class EditorPage extends ConsumerStatefulWidget {
 
 class _EditorPageConsumerState extends ConsumerState<EditorPage> {
   EditorState editorState = EditorState.blank();
+  OverlayEntry? _overlayEntry;
+
+  @override
+  void dispose() {
+    _removeOverlay();
+    super.dispose();
+  }
+
+  void _removeOverlay() {
+    _overlayEntry?.remove();
+    _overlayEntry = null;
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('AppFlowy Editor with Mentions')),
-      body: AppFlowyEditor(
-        editorState: editorState,
-        characterShortcutEvents: [
-          mentionShortcutEvent,
-        ],
+      body: SafeArea(
+        child: Column(
+          children: [
+            Center(
+                child: Text(
+              'AppFlowy Editor Example App',
+              style: Theme.of(context).textTheme.headlineLarge,
+            )),
+            const SizedBox(height: 50),
+            Expanded(
+              child: Container(
+                  margin: const EdgeInsets.all(8.0),
+                  decoration: BoxDecoration(
+                      border: Border.all(color: Colors.blue, width: 2.0)),
+                  child: HtmlEditor(editorState: editorState, editable: true)),
+            ),
+          ],
+        ),
       ),
     );
   }
