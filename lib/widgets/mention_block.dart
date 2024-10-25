@@ -1,8 +1,18 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:appflowy_example_app/vo/mention_state.dart';
 import 'package:appflowy_example_app/widgets/room_mention_block.dart';
 import 'package:appflowy_example_app/widgets/user_mention_block.dart';
 import 'package:flutter/material.dart';
+
+enum MentionType {
+  user,
+  room;
+
+  static MentionType fromString(String value) => switch (value) {
+        'user' => user,
+        'room' => room,
+        _ => throw UnimplementedError(),
+      };
+}
 
 class MentionBlockKeys {
   const MentionBlockKeys._();

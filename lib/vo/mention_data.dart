@@ -29,7 +29,7 @@ class MentionDataService {
   static Duration get _randomDelay =>
       Duration(milliseconds: Random().nextInt(800) + 200);
 
-  static Future<Map<String, dynamic>?> fetchUser(String userId) async {
+  static Future<Map<String, Map<String, dynamic>>> fetchRooms() async {
     await Future.delayed(_randomDelay);
 
     // Simulate occasional network errors
@@ -37,10 +37,10 @@ class MentionDataService {
       throw Exception('Network error');
     }
 
-    return _userData[userId];
+    return _roomData;
   }
 
-  static Future<Map<String, dynamic>?> fetchRoom(String roomId) async {
+  static Future<Map<String, Map<String, dynamic>>> fetchUsers() async {
     await Future.delayed(_randomDelay);
 
     // Simulate occasional network errors
@@ -48,6 +48,6 @@ class MentionDataService {
       throw Exception('Network error');
     }
 
-    return _roomData[roomId];
+    return _userData;
   }
 }

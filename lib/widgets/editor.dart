@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:appflowy_editor/appflowy_editor.dart';
+import 'package:appflowy_example_app/shortcuts/mention_shortcut_event.dart';
 import 'package:appflowy_example_app/utils.dart';
-import 'package:appflowy_example_app/vo/mention_state.dart';
 import 'package:appflowy_example_app/widgets/mention_block.dart';
 import 'package:flutter/material.dart';
 
@@ -279,6 +279,11 @@ class HtmlEditorState extends State<HtmlEditor> {
           editorState: editorState,
           editorStyle: desktopEditorStyle(),
           footer: generateFooter(),
+          characterShortcutEvents: [
+            ...standardCharacterShortcutEvents,
+            ...getMentionShortcuts(context)
+          ],
+          commandShortcutEvents: [...standardCommandShortcutEvents],
         ),
       ),
     );
@@ -330,6 +335,11 @@ class HtmlEditorState extends State<HtmlEditor> {
           editorScrollController: editorScrollController,
           editorStyle: mobileEditorStyle(),
           footer: generateFooter(),
+          characterShortcutEvents: [
+            ...standardCharacterShortcutEvents,
+            ...getMentionShortcuts(context)
+          ],
+          commandShortcutEvents: [...standardCommandShortcutEvents],
         ),
       ),
     );

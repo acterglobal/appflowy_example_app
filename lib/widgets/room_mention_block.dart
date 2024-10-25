@@ -1,26 +1,6 @@
 import 'package:appflowy_editor/appflowy_editor.dart';
-import 'package:appflowy_example_app/vo/mention_state.dart';
-import 'package:appflowy_example_app/widgets/mention_block.dart';
 import 'package:appflowy_example_app/widgets/mention_content_block.dart';
 import 'package:flutter/material.dart';
-
-Node roomMentionNode(String roomId, String? displayName) {
-  return paragraphNode(
-    delta: Delta(
-      operations: [
-        TextInsert(
-          '${MentionBlockKeys.roomMentionChar}${displayName ?? roomId}',
-          attributes: {
-            MentionBlockKeys.mention: {
-              MentionBlockKeys.type: MentionType.room.name,
-              MentionBlockKeys.roomId: roomId,
-            },
-          },
-        ),
-      ],
-    ),
-  );
-}
 
 class RoomMentionBlock extends StatefulWidget {
   const RoomMentionBlock({
@@ -47,13 +27,6 @@ class RoomMentionBlock extends StatefulWidget {
 }
 
 class _RoomMentionBlockState extends State<RoomMentionBlock> {
-  void updateSelection() {
-    WidgetsBinding.instance.addPostFrameCallback(
-      (_) => widget.editorState
-          .updateSelectionWithReason(widget.editorState.selection),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final desktopPlatforms = [

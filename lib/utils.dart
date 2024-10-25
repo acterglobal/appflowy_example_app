@@ -15,3 +15,12 @@ extension OptionExtension<T> on T? {
     return value == null ? defaultValue ?? orElse?.call() : op(value);
   }
 }
+
+// // Constants for triggers
+// enum MentionType {
+//   user('@'),
+//   room('#');
+
+//   final String trigger;
+//   const MentionType(this.trigger);
+// }
