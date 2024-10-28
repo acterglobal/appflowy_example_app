@@ -38,7 +38,7 @@ class MentionContentWidget extends StatelessWidget {
           ),
         const SizedBox(width: 4),
         Text(
-          '$mentionId',
+          mentionId,
           style: baseTextStyle?.copyWith(
             fontSize: (baseTextStyle.fontSize ?? 14.0) * 0.9,
             color: Theme.of(context).hintColor,

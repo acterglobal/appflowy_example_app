@@ -56,10 +56,12 @@ class _EditorPageConsumerState extends ConsumerState<EditorPage> {
             const SizedBox(height: 50),
             Expanded(
               child: Container(
-                  margin: const EdgeInsets.all(8.0),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.blue, width: 2.0)),
-                  child: HtmlEditor(editorState: editorState, editable: true)),
+                margin: const EdgeInsets.all(8.0),
+                decoration: BoxDecoration(
+                    border: Border.all(color: Colors.blue, width: 2.0)),
+                child: HtmlEditor(
+                    editorState: editorState, editable: true, autoFocus: false),
+              ),
             ),
           ],
         ),

@@ -1,5 +1,7 @@
 import 'dart:math';
 
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 class MentionDataService {
   static final Map<String, Map<String, dynamic>> _userData = {
     '@john.doe:acter.global.org': {
@@ -51,3 +53,37 @@ class MentionDataService {
     return _userData;
   }
 }
+
+class MentionItem {
+  final String id;
+  final String displayName;
+
+  MentionItem({
+    required this.id,
+    required this.displayName,
+  });
+}
+
+final mentionUsersProvider = FutureProvider<List<MentionItem>>((ref) async {
+  final users = <MentionItem>[];
+  final userData = await MentionDataService.fetchUsers();
+  for (final userId in userData.keys) {
+    users.add(MentionItem(
+      id: userId,
+      displayName: userData[userId]?['displayName'] as String,
+    ));
+  }
+  return users;
+});
+
+final mentionRoomsProvider = FutureProvider<List<MentionItem>>((ref) async {
+  final rooms = <MentionItem>[];
+  final roomData = await MentionDataService.fetchRooms();
+  for (final roomId in roomData.keys) {
+    rooms.add(MentionItem(
+      id: roomId,
+      displayName: roomData[roomId]?['displayName'] as String,
+    ));
+  }
+  return rooms;
+});
